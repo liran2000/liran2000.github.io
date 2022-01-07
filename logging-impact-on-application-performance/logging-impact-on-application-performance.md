@@ -1,3 +1,15 @@
+
+---
+title: "Logging impact application performance"
+date: 2022-01-09
+publishdate: 2022-01-09
+authors: Liran Mendelovich
+img: docs/liran.jpg
+draft: true
+tags: ["performance", "scale"]
+layout: section
+---
+
 # Logging impact application performance
 
 ## Highlights
