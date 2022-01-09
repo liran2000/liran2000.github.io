@@ -80,7 +80,6 @@
 					</header>
 					<p>
 						
-						<h2 id="layout-section-">layout: section  </h2>
 						<h2 id="highlights">Highlights</h2>
 						<ul>
 						<li>non-compliant and excessive logging</li>
@@ -89,13 +88,15 @@
 						</ul>
 						<h2 id="introduction">Introduction</h2>
 						<p>Consider the following code:</p>
-						<pre><code>parseMessage(List<span class="hljs-variable">&lt;Message&gt;</span> messages) {
-						    <span class="hljs-keyword">log</span>.<span class="hljs-keyword">debug</span>(<span class="hljs-string">"messages: "</span> + messages);
-						}
+						<pre><code>
+parseMessage(List&lt;Message&gt; messages) {
+	log.debug"messages: " + messages);
+}
 						</code></pre><p>or on a different version:</p>
-						<pre><code>parseMessage(List<span class="hljs-variable">&lt;Message&gt;</span> messages) {
-						    <span class="hljs-keyword">log</span>.<span class="hljs-keyword">debug</span>(<span class="hljs-string">"messages: {}"</span>, messages.<span class="hljs-keyword">to</span>String());
-						}
+						<pre><code>
+parseMessage(List&lt;Message&gt; messages) {
+	log.debug("messages: {}", messages.toString());
+}
 						</code></pre><p>What is the issue with this code line of log writing ?</p>
 						<p>This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.<br>Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.</p>
 						<h2 id="real-high-scale-execution-recording-showing-the-effect">Real high scale execution recording showing the effect</h2>
@@ -126,11 +127,13 @@
 						<h2 id="solution">Solution</h2>
 						<h3 id="non-compliant-logging">Non-compliant logging</h3>
 						<p>Solution is valid code writing which will cause toString() method invocation only when needed, for example when log is in debug verbosity: </p>
-						<pre><code>parseMessage(List<span class="hljs-variable">&lt;Message&gt;</span> messages) {
-						    <span class="hljs-keyword">log</span>.<span class="hljs-keyword">debug</span>(<span class="hljs-string">"messages: {}"</span>, messages);
-						}
+						<pre>
+						<code>
+parseMessage(List<Message> messages) {
+	log.debug("messages: {}", messages);
+}
 						</code></pre><h3 id="excessive-logging">Excessive logging</h3>
-						<p>Review logging, move non-necessary log to DEBUG or remove if not needed anymore post development.</p>
+						<p>Review logging, move unnecessary log to DEBUG or remove if not needed anymore post development.</p>
 						<h2 id="conclusion">Conclusion</h2>
 						<p>Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduced processing time,
 						reduced CPU and temporary memory usage and I/O for log file writing.</p>
