@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <h1 class="page-heading">Example</h1>
+  
+  <!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+<h1>Logging impact application performance</h1>
+<h2>Highlights</h2>
+<ul>
+<li>Invalid log writing</li>
+<li>Real high scale execution recording showing the effect</li>
+<li>-&gt; Why valid log writing is very important.&nbsp;</li>
+</ul>
+<h2>Story</h2>
+<p>Consider the following code:</p>
+<p><code></code><code></code></p>
+<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: " + messages);</code><br /><code>}</code></p>
+<p>or on a different version:</p>
+<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: {}", messages.toString());</code><br /><code>}</code></p>
+<p>What is the issue with this code line of log writing ?</p>
+<p>This resulting with toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.</p>
+<h2>Real high scale execution recording showing the effect</h2>
+<p>FILL IN</p>
+<h2>Solution</h2>
+<p>Solution is valid code writing which will cause toString() method invocation only when needed, for example when log is in debug verbosity:&nbsp;</p>
+<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: {}", messages);</code><br /><code>}</code></p>
+<p>&nbsp;</p>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
