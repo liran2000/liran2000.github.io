@@ -1,46 +1,186 @@
----
-layout: default
----
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Liran Mendeovich</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
 
-<div class="home">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<!-- 
+		<script async src="https://www.googletagmanager.com/gtag/js?id=..."></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-168691067-1');
+		</script>
+		 -->
 
-  <h1 class="page-heading">Example</h1>
-  
-  <!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
-<h1>Logging impact application performance</h1>
-<h2>Highlights</h2>
-<ul>
-<li>Invalid log writing</li>
-<li>Real high scale execution recording showing the effect</li>
-<li>-&gt; Why valid log writing is very important.&nbsp;</li>
-</ul>
-<h2>Story</h2>
-<p>Consider the following code:</p>
-<p><code></code><code></code></p>
-<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: " + messages);</code><br /><code>}</code></p>
-<p>or on a different version:</p>
-<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: {}", messages.toString());</code><br /><code>}</code></p>
-<p>What is the issue with this code line of log writing ?</p>
-<p>This resulting with toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.</p>
-<h2>Real high scale execution recording showing the effect</h2>
-<p>FILL IN</p>
-<h2>Solution</h2>
-<p>Solution is valid code writing which will cause toString() method invocation only when needed, for example when log is in debug verbosity:&nbsp;</p>
-<p><code>parseMessage(List&lt;Message&gt; messages) {</code><br /><code>&nbsp; &nbsp; log.debug("messages: {}", messages);</code><br /><code>}</code></p>
-<p>&nbsp;</p>
+	</head>
+	<body class="is-preload">
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+		<script>
+			function darkTheme() {
+				var element = document.body;
+				element.classList.toggle("dark-mode");
+			}
+		</script>
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="#" class="image avatar" style="width:25%;">
+						<img src="images/liran.jpg" alt="" />
+					</a>
+					<h1>
+						<strong>Liran Mendeovich</strong>
+					</h1>
+					<h1>
+						Tech lead software developer
+					</h1>
+					<ul class="icons" style="font-size: 1.5rem;">
+						<li><a href="https://il.linkedin.com/in/liran-mendelovich-1584a42b" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<!-- 
+						<li><a href="https://medium.com/@liran2000" target="_blank" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
+						 -->
+						<li><a href="https://github.com/liran2000" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<!-- 
+						<li><a href="mailto:MAIL@MAIL.com" target="_blank" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						 -->
+					</ul>
+				</div>
+				<!-- 
+				<div class="col-6 col-12-small">
+					<input
+					type="checkbox"
+					id="dark-theme"
+					name="dark-theme"
+					onclick="darkTheme()">
+					<label for="dark-theme">Dark theme</label>
+				</div>
+				 -->
+			</header>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+		<!-- Main -->
+			<div id="main">
 
-</div>
+				<!-- About Me -->
+				<section id="about_me">
+					<header class="major">
+						<h2>About me</h2>
+					</header>
+					<p>
+						<p>Hands-on software developer.</p>
+						<ul>
+						<li>Backend development</li>
+						<li>Problem solving</li>
+						<li>Performance, Concurrency</li>
+						<li>Distributed systems &amp; micro-services</li>
+						<li>Open source libraries</li>
+						</ul>
+						<h4 id="how-were-my-open-source-projects-got-started-">How were my open source projects got started ?</h4>
+						<p>During development at my company work, we needed common generic implementation in for a few items, searched online, and could not find simple ones which fits the requirements. Implemented it myself, and published it as open source. Refer to open source projects section for details.</p>
+					</p>
+				</section>
+				
+				<!-- Navigation -->
+				<section id="navigation">
+					<div class="row">
+						<article class="col-4 col-12-xsmall work-item">
+							<a 
+							href="#blog_posts"
+							class="image fit thumb">
+								<img src="images/fulls/01.jpg"
+								alt="Blog posts" />
+							</a>
+							<h2 style="text-align:center;">Blog Posts</h2>
+						</article>
+						<article class="col-4 col-12-xsmall work-item">
+							<a 
+							href="#projects"
+							class="image fit thumb">
+								<img src="images/fulls/02.jpg"
+								alt="Open source projects" />
+							</a>
+							<h2 style="text-align:center;">Open source projects</h2>
+						</article>
+					</div>
+					
+				</section>
+
+				<section id="blog_posts">
+					<h2>Blog Posts</h2>
+					<div class="row">
+
+						<article class="col-6 col-12-xsmall work-item">
+							<a 
+							href="./logging-impact-on-application-performance/index.html"
+							class="image fit thumb"
+							target="_blank">
+								<img src="logging-impact-on-application-performance/docs/image.jpg" alt="Logging impact application performance" />
+							</a>
+							<p>Logging impact application performance</p>
+						</article>
+
+					</div>
+				</section>
+
+				<section id="projects">
+					<h2>Open source projects</h2>
+					<div class="row">
+
+						<article class="col-6 col-12-xsmall work-item">
+							<a 
+							href="https://github.com/CiscoSE/commons-networking#commons-networking"
+							target="_blank">
+								Commons-networking
+							</a>
+							<p>Commons networking related utils.</p>
+						</article>
+						
+						<article class="col-6 col-12-xsmall work-item">
+							<a 
+							href="https://github.com/CiscoSE/commons-cluster#commons-cluster"
+							target="_blank">
+								Commons-cluster
+							</a>
+							<p>Commons cluster utils.</p>
+						</article>
+						
+						<article class="col-6 col-12-xsmall work-item">
+							<a 
+							href="https://github.com/CiscoSE/commons-processing#commons-processing"
+							target="_blank">
+								Commons-processing
+							</a>
+							<p>Commons processing utils.</p>
+						</article>
+
+					</div>
+				</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<li>&copy; Liran Mendelovich</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer> 
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
