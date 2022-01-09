@@ -87,7 +87,7 @@ parseMessage(List<Message> messages) {
 ```
 
 ### Excessive logging
-Review logging, move non-necessary log to DEBUG or remove if not needed anymore post development.
+Review logging, move unnecessary log to DEBUG or remove if not needed anymore post development.
 
 ## Conclusion
 
