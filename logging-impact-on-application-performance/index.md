@@ -1,13 +1,13 @@
 
 ---
-title: "Logging impact application performance"  
-date: "2022-01-09"  
-publishdate: "2022-01-09"  
-authors: "Liran Mendelovich"  
-img: "docs/liran.jpg"  
-draft: true  
-tags: ["performance", "scale", "multi-threading", "java"]  
-layout: "section"  
+title: Logging impact application performance  
+date: 2022-01-09  
+publishdate: 2022-01-09  
+authors: Liran Mendelovich  
+authorImage: liran-mendelovich.jpg  
+img: /blog/logging-impact-on-application-performance/docs/image.jpg  
+tags: ["101", "performance", "scale", "multi-threading", "java"]  
+layout: section  
 ---
 
 # logging impact on application performance
@@ -18,7 +18,7 @@ layout: "section"
 * Real high scale execution recording showing the effect
 * -> Why valid log writing is very important
 
-## Story
+## Introduction
 
 Consider the following code:
 
@@ -38,15 +38,15 @@ parseMessage(List<Message> messages) {
 
 What is the issue with this code line of log writing ?
 
-This resulting with toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.  
-Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log.
+This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.  
+Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.
 
 ## Real high scale execution recording showing the effect
 
 During high scale test analysis, resources were analyzed. Execution was with 100 parallel threads processing the data.  
-With things like memory heap dump and thread dump, such described phenomena do not comes to place, since it results
+With tools like memory heap dump and thread dump, such described phenomena do not comes to place, since it results
 in temporary high resources usage of memory allocation, CPU processing, and possibly file IO if this is written to log
-according to verbosity. As these are temporary, it is not reflects in the memory heap dump and others.
+according to verbosity. As these are temporary, it is not reflects in the memory heap dump and other tools.
 This is where process recording analysis comes to place.
 
 Look on memory, before logging changes:
@@ -91,8 +91,8 @@ Review logging, move non-necessary log to DEBUG or remove if not needed anymore 
 
 ## Conclusion
 
-Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduce processing time,
-reduce CPU and temporary memory usage and I/O for log file writing.
+Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduced processing time,
+reduced CPU and temporary memory usage and I/O for log file writing.
 
 
 
