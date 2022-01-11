@@ -98,7 +98,7 @@ parseMessage(List&lt;Message&gt; messages) {
 	log.debug("messages: {}", messages.toString());
 }
 						</code></pre><p>What is the issue with this code line of log writing ?</p>
-						<p>This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.<br>Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.</p>
+						<p>This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, it can result in performance degradation in high scale executions.<br>Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.</p>
 						<h2 id="real-high-scale-execution-recording-showing-the-effect">Real high scale execution recording showing the effect</h2>
 						<p>During high scale test analysis, resources were analyzed. Execution was with 100 parallel threads processing the data.<br>With tools like memory heap dump and thread dump, such described phenomena do not comes to place, since it results
 						in temporary high resources usage of memory allocation, CPU processing, and possibly file IO if this is written to log
@@ -135,8 +135,8 @@ parseMessage(List<Message> messages) {
 						</code></pre><h3 id="excessive-logging">Excessive logging</h3>
 						<p>Review logging, move unnecessary log to DEBUG or remove if not needed anymore post development.</p>
 						<h2 id="conclusion">Conclusion</h2>
-						<p>Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduced processing time,
-						reduced CPU and temporary memory usage and I/O for log file writing.</p>
+						<p>Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduce processing time,
+						reduce CPU and temporary memory usage and I/O for log file writing.</p>
 							
 					</p>
 				</section>

@@ -6,7 +6,7 @@ publishdate: 2022-01-09
 authors: Liran Mendelovich  
 authorImage: liran-mendelovich.jpg  
 img: /blog/logging-impact-on-application-performance/docs/image.jpg  
-tags: ["101", "performance", "scale", "multi-threading", "java"]  
+tags: ["101", "performance", "scale", "multi-threading", "logging", "java"]  
 layout: section  
 ---
 
@@ -38,7 +38,7 @@ parseMessage(List<Message> messages) {
 
 What is the issue with this code line of log writing ?
 
-This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, can result in performance degradation in high scale executions.  
+This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, it can result in performance degradation in high scale executions.  
 Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.
 
 ## Real high scale execution recording showing the effect
@@ -53,18 +53,22 @@ Look on memory, before logging changes:
 ![Memory, before logging changes](./docs/memory_before.jpg)
 Here we see 70G of temporary memory consumption is used from the non-compliant logging.  
 This can cause garbage collector redundant heavy processing, which uses system memory and CPU.
+
 ---
 Look on memory, after logging changes:
 ![Memory, after logging changes](./docs/memory_after.jpg)
 -> 70G of temporary memory consumption is removed.
+
 ---
 Look on method profiling, before logging changes:
 ![Method profiling, before logging changes](./docs/method-profiling_before.jpg)
 Here we see many of the methods invocations are redundant.
+
 ---
 Look on method profiling, after logging changes:
 ![Method profiling, after logging changes](./docs/method-profiling_after.jpg)
 -> Redundant methods invocations are removed.
+
 ---
 Look on lock instances, before logging changes:
 ![Lock instances, before logging changes](./docs/lock-instances_before.jpg)
@@ -91,8 +95,8 @@ Review logging, move unnecessary log to DEBUG or remove if not needed anymore po
 
 ## Conclusion
 
-Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduced processing time,
-reduced CPU and temporary memory usage and I/O for log file writing.
+Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduce processing time,
+reduce CPU and temporary memory usage and I/O for log file writing.
 
 
 
