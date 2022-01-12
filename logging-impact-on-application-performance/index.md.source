@@ -1,4 +1,3 @@
-
 ---
 title: Logging impact application performance  
 date: 2022-01-09  
@@ -8,9 +7,9 @@ authorImage: liran-mendelovich.jpg
 img: /blog/logging-impact-on-application-performance/docs/image.jpg  
 tags: ["101", "performance", "scale", "multi-threading", "logging", "java"]  
 layout: section  
----
+--- 
 
-# logging impact on application performance
+Compliant logging is highly important for application development, as it affects performance.  
 
 ## Highlights
 
