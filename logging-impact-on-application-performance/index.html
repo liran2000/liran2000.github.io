@@ -73,7 +73,7 @@
 				<!-- The post -->
 				<section id="post">
 					<header class="major">
-						<h2>Logging impact application performance</h2>
+						<h2>Logging impact on application performance</h2>
 						<br>Author: Liran Mendelovich<br>
 						<br>2022<br>
 						<br>tags: [&quot;performance&quot;, &quot;scale&quot;, &quot;multi-threading&quot;, &quot;java&quot;]  </p>
@@ -138,7 +138,15 @@ parseMessage(List<Message> messages) {
 						<p>Review logging, move unnecessary log to DEBUG or remove if not needed anymore post development.</p>
 						<h2 id="conclusion">Conclusion</h2>
 						<p>Fixing non-compliant logging, and reducing excessive logging can drastically improve performance, reduce processing time,
-						reduce CPU and temporary memory usage and I/O for log file writing.</p>
+						reduce CPU and temporary memory usage and I/O for log file writing.
+						</p>
+						<br/>
+						<h2 id="follow-up">Follow-up</h2>
+						<p>Some of the mentioned logging issues can be potentially be identified by automatic source analysis tools like Sonar.  
+							However, since there are multiple ways for logging, specifically the common convenient Lombok library, the source code 
+							analysis tools rules do not always catch these issues: 
+							<a href="https://community.sonarsource.com/t/java-rule-for-redundant-log-actions/55748/7">Java rule for redundant log actions</a>.
+						</p>
 							
 					</p>
 				</section>

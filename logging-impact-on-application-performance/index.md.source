@@ -1,7 +1,7 @@
 ---
-title: Logging impact application performance  
-date: 2022-01-09  
-publishdate: 2022-01-09  
+title: Logging impact on application performance  
+date: 2022-01-12  
+publishdate: 2022-01-12  
 authors: Liran Mendelovich  
 authorImage: liran-mendelovich.jpg  
 img: /blog/logging-impact-on-application-performance/docs/image.jpg  
@@ -98,4 +98,9 @@ Fixing non-compliant logging, and reducing excessive logging can drastically imp
 reduce CPU and temporary memory usage and I/O for log file writing.
 
 
+## Follow-up
+Some of the mentioned logging issues can be potentially be identified by automatic source analysis tools like Sonar.  
+However, since there are multiple ways for logging, specifically the common convenient Lombok library, the source code 
+analysis tools rules do not always catch these issues 
+![Java rule for redundant log actions](https://community.sonarsource.com/t/java-rule-for-redundant-log-actions/55748/7).
 
