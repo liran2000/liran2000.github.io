@@ -37,8 +37,15 @@ parseMessage(List<Message> messages) {
 
 What is the issue with this code line of log writing ?
 
-This resulting with redundant toString() method invocation on each call, even when log verbosity resulting with nothing written in log. This method invocation is redundant, and when written in such processing methods which are executed per message, it can result in performance degradation in high scale executions.  
-Similar effect could arise if this was intended for logging in info verbosity such that it was printed to log file.
+This resulting with redundant toString() method invocation on each call, 
+even when log verbosity resulting with nothing written in log. 
+This method invocation is redundant, and when written in such processing methods which are executed 
+per message, it can result in performance degradation in high scale executions.  
+It is resulting with redundant temporary memory allocation and CPU processing.
+In addition, since this message is dynamic as its pattern is always appended with a parameter, it cannot
+be used from a shared string pool, thus a new string is allocated in memory on each execution.  
+Similar effect could arise if this was intended for logging in info verbosity such that it was 
+printed to log file.
 
 ## Real high scale execution recording showing the effect
 
