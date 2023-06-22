@@ -1,0 +1,35 @@
+
+Out of memory error can occur from several reasons.  
+
+## Note
+Since the issue comes from a potential security vulnerability which was not approved yet, will address it without mentioning any specifics for now.
+
+## What happened
+
+* Microservice got OutOfMemory error.
+* Analysis of several of such events showed stacktrace at a specific method.
+
+## Root cause analysis
+During file processing for a specific file, the mentioned method call was slow and consuming very high memory.
+For a specific file of roughly 40MB file size, the method call took 2~ minutes and consumed more than 2GB memory.
+Internal solution was added to handle such cases.
+
+## Security issue
+As micro service got OutOfMemory error, the issue is treated as a potential security vulnerability.
+
+For a reference, found some CVEs for other resources with similar description supporting that this issue can be treated as a potential security vulnerability:
+* [CVE-2021-36090] (https://nvd.nist.gov/vuln/detail/CVE-2021-36090): "...allocate large amounts of memory that finally leads to an out of memory error even for very small inputs. This could be used to mount a denial of service attack..."
+* [CVE-2018-10237] (https://nvd.nist.gov/vuln/detail/CVE-2018-10237) - "Unbounded memory allocation...allows remote attackers to conduct denial of service attacks...allocation without appropriate checks on what a client has sent and whether the data size is reasonable."
+* [CWE-770] (http://cwe.mitre.org/data/definitions/770.html) Allocation of Resources Without Limits or Throttling
+
+## Outcome
+After some experiments, managed to create simple and small isolated reproduction.
+Reproduction showing that for some large inputs, the mentioned method consumes very high memory of more than 50 times larger than the input and takes a long time.
+At the test case, processing input of 10 million bytes length consumes more than 600M added memory, and takes a lot of time to run of a few seconds.
+As such, the issue was reported to the owners of the library
+
+Example console output line showing memoryTaken as more than 600M:
+ 
+bytes length: 10000000
+current memory before method: 13339528
+current memory after method: 645928816, memoryTaken: 632589288,  timeTaken: 6530 ms.

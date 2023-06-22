@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Liran Mendeovich</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<!-- 
+		<script async src="https://www.googletagmanager.com/gtag/js?id=..."></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '...');
+		</script>
+		 -->
+
+	</head>
+	<body class="is-preload">
+
+		<script>
+			function darkTheme() {
+				var element = document.body;
+				element.classList.toggle("dark-mode");
+			}
+		</script>
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="#" class="image avatar" style="width:25%;">
+						<img src="../images/liran.jpg" alt="" />
+					</a>
+					<h1>
+						<strong>Liran Mendeovich</strong>
+					</h1>
+					<h1>
+						Software Developer
+					</h1>
+					<ul class="icons" style="font-size: 1.5rem;">
+						<li><a href="https://linkedin.com/in/liran-mendelovich-1584a42b" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<!-- 
+						<li><a href="https://medium.com/@liran2000" target="_blank" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
+						 -->
+						<li><a href="https://github.com/liran2000" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<!-- 
+						<li><a href="mailto:MAIL@MAIL.com" target="_blank" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						 -->
+					</ul>
+				</div>
+				<!-- 
+				<div class="col-6 col-12-small">
+					<input
+					type="checkbox"
+					id="dark-theme"
+					name="dark-theme"
+					onclick="darkTheme()">
+					<label for="dark-theme">Dark theme</label>
+				</div>
+				 -->
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- The post -->
+				<section id="post">
+					<p>
+						
+						<p>Out of memory error can occur from several reasons.  </p>
+<h2 id="note">Note</h2>
+<p>Since the issue comes from a potential security vulnerability which was not approved yet, will address it without mentioning any specifics for now.</p>
+<h2 id="what-happened">What happened</h2>
+<ul>
+<li>Microservice got OutOfMemory error.</li>
+<li>Analysis of several of such events showed stacktrace at a specific method.</li>
+</ul>
+<h2 id="root-cause-analysis">Root cause analysis</h2>
+<p>During file processing for a specific file, the mentioned method call was slow and consuming very high memory.
+For a specific file of roughly 40MB file size, the method call took 2~ minutes and consumed more than 2GB memory.
+Internal solution was added to handle such cases.</p>
+<h2 id="security-issue">Security issue</h2>
+<p>As micro service got OutOfMemory error, the issue is treated as a potential security vulnerability.</p>
+<p>For a reference, found some CVEs for other resources with similar description supporting that this issue can be treated as a potential security vulnerability:</p>
+<ul>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-36090">CVE-2021-36090</a> &quot;...allocate large amounts of memory that finally leads to an out of memory error even for very small inputs. This could be used to mount a denial of service attack...&quot;</li>
+<li><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a> &quot;Unbounded memory allocation...allows remote attackers to conduct denial of service attacks...allocation without appropriate checks on what a client has sent and whether the data size is reasonable.&quot;</li>
+<li><a href="http://cwe.mitre.org/data/definitions/770.html">CWE-770</a> Allocation of Resources Without Limits or Throttling</li>
+</ul>
+<h2 id="outcome">Outcome</h2>
+<p>After some experiments, managed to create simple and small isolated reproduction.
+Reproduction showing that for some large inputs, the mentioned method consumes very high memory of more than 50 times larger than the input and takes a long time.
+At the test case, processing input of 10 million bytes length consumes more than 600M added memory, and takes a lot of time to run of a few seconds.
+As such, the issue was reported to the owners of the library</p>
+<p>Example console output line showing memoryTaken as more than 600M:</p>
+<pre><code>bytes length: <span class="hljs-number">10000000</span>
+current memory before <span class="hljs-function"><span class="hljs-keyword">method</span>:</span> <span class="hljs-number">13339528</span>
+current memory after <span class="hljs-function"><span class="hljs-keyword">method</span>:</span> <span class="hljs-number">645928816</span>, memoryTaken: <span class="hljs-number">632589288</span>,  timeTaken: <span class="hljs-number">6530</span> ms.
+</code></pre>
+							
+					</p>
+				</section>
+				
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<li>&copy; Liran Mendelovich</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer> 
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
