@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Liran Mendeovich</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<!-- 
+		<script async src="https://www.googletagmanager.com/gtag/js?id=..."></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '...');
+		</script>
+		 -->
+
+	</head>
+	<body class="is-preload">
+
+		<script>
+			function darkTheme() {
+				var element = document.body;
+				element.classList.toggle("dark-mode");
+			}
+		</script>
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="#" class="image avatar" style="width:25%;">
+						<img src="../images/liran.jpg" alt="" />
+					</a>
+					<h1>
+						<strong>Liran Mendeovich</strong>
+					</h1>
+					<h1>
+						Software Developer
+					</h1>
+					<ul class="icons" style="font-size: 1.5rem;">
+						<li><a href="https://linkedin.com/in/liran-mendelovich-1584a42b" target="_blank" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<!-- 
+						<li><a href="https://medium.com/@liran2000" target="_blank" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
+						 -->
+						<li><a href="https://github.com/liran2000" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<!-- 
+						<li><a href="mailto:MAIL@MAIL.com" target="_blank" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						 -->
+					</ul>
+				</div>
+				<!-- 
+				<div class="col-6 col-12-small">
+					<input
+					type="checkbox"
+					id="dark-theme"
+					name="dark-theme"
+					onclick="darkTheme()">
+					<label for="dark-theme">Dark theme</label>
+				</div>
+				 -->
+			</header>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- The post -->
+				<section id="post">
+					<p>
+
+					<p>This month I have encountered at 2 of our services CI build failure due to Java Unit tests.
+						Same tests passed locally.  </p>
+					<p>With no error in logs, the tests got OOMKilled, even though the Java heap size limit was ok relative to the Docker
+						pod resources.<br>No core/heap dump file generated. </p>
+					<p>OOMKilled error message had a line mentioning netty c lib.<br>On both cases, cause was from Google Cloud Apis and OpenTelemetry which having gRpc calls which
+						<a href="https://github.com/grpc/grpc-java?tab=readme-ov-file#transport">uses Netty</a> under the hood.<br>When disabling the connections on tests, issue was resolved. </p>
+					<p>The connections should not have been enabled on tests, but still it was not clear why it got OOMKilled, even though
+						the Java heap size limit was ok relative to the Docker container.</p>
+					<p>Then I found <a href="https://piotrd.hashnode.dev/containerized-jvm-oomkilled-problem">this</a>:</p>
+					<blockquote>
+						<p>Netty uses ByteBuffers and Direct Memory to allocate and deallocate memory</p>
+					</blockquote>
+					<h3 id="solution">Solution</h3>
+					<p>gRpc is widely used for libraries like Google Cloud clients, OpenTelemetry and more.<br>As io.grpc uses Netty, a similar phenomena can happen at a micro-service, some adjustments can be made.<br>There are multiple approaches on how to address it.</p>
+					<p>Commonly, Java heap size is configured to be a bit less than the pod memory limit.<br>In this case, the margin between Java heap size and pod memory limit may not be enough, as the off-heap Direct Memory
+						may exceed the pod memory limit, resulting with OOMKilled by Kubernetes.</p>
+					<p>A more controlled approach, is to configure
+						<a href="https://stackoverflow.com/questions/67068818/oom-killed-jvm-with-320-x-16mb-netty-directbytebuffer-objects">Direct Memory limit</a>
+						as well, and configure pod memory limit to be the summary of max heap and max off-heap (Direct Memory) + some margin
+						for other memory like Meta space, classes and more.</p>
+
+
+					</p>
+				</section>
+				
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<li>&copy; Liran Mendelovich</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer> 
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
